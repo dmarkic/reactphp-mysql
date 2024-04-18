@@ -434,10 +434,8 @@ class Parser
                 $ret = $this->stream->write($this->buffer->buildInt3($part_len) . $this->buffer->buildInt1($this->seq++) . $part);
                 $packet = \substr($packet, $part_len);
                 $packet_len = \strlen($packet);
-                //
                 // If last part was exactly 0xffffff in size, we need to send an empty packet to signal end
                 // of packet splitting.
-                //
                 if (\strlen($packet) === 0 && $part_len === 0xffffff) {
                     $ret = $this->stream->write($this->buffer->buildInt3(0) . $this->buffer->buildInt1($this->seq++));
                 }
